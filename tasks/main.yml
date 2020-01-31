@@ -1,0 +1,12 @@
+---
+- name: UnInstall Windows-Defender
+  win_feature:
+    name: Windows-Defender
+    state: absent
+  when: "ansible_os_family == 'Windows'"
+
+- name: UnInstall XPS-Viewer
+  win_feature:
+    name: XPS-Viewer
+    state: absent
+  when: "ansible_os_family == 'Windows'"
