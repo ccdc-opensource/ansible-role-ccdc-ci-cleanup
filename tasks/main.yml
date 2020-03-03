@@ -3,10 +3,67 @@
   win_feature:
     name: Windows-Defender
     state: absent
-  when: "ansible_os_family == 'Windows'"
 
 - name: UnInstall XPS-Viewer
   win_feature:
     name: XPS-Viewer
     state: absent
-  when: "ansible_os_family == 'Windows'"
+
+# The win_package menu does not support AppX packages yet
+# so we need to run raw PowerShell commands.
+- name: Uninstall {{ package }}
+  win_command: "Get-AppxPackage -AllUsers -Name *{{ package }}* | Remove-AppxPackage -AllUsers"
+  loop:
+    - WindowsMaps
+    - WindowsSoundRecorder
+    - WindowsCamera
+    - WindowsAlarms
+    - WindowsFeedbackHub
+    - windowscommunicationsapps
+    - WindowsPhone
+    - BingNews
+    - BingFinance
+    - BingSports
+    - BingWeather
+    - ZuneVideo
+    - ZuneMusic
+    - SkypeApp
+    - MicrosoftOfficeHub
+    - Messaging
+    - Advertising.Xaml
+    - Office.OneNote
+    - OneConnect
+    - Getstarted
+    - Phone
+    - Sway
+    - Print3D
+    - Microsoft3DViewer
+    - 3DBuilder
+    - NetworkSpeedTest
+    - RemoteDesktop
+    - Wallet
+    - BubbleWitch
+    - HiddenCity
+    - Disney
+    - MarchofEmpires
+    - CandyCrush
+    - MicrosoftSolitaireCollection
+    - RoyalRev
+    - COOKINGFEVER
+    - PowerBI
+    - Eclipse
+    - AdobePhotoshopExpress
+    - Sling
+    - Duolingo
+    - PhototasticCollage
+    - Keeper
+    - SketchBook
+    - DolbyAccess
+    - Fitbit
+    - Spotify
+    - Pandora
+    - twitter
+    - Facebook
+    - XboxApp
+  loop_control:
+    loop_var: package
