@@ -9,10 +9,11 @@
     name: XPS-Viewer
     state: absent
 
-# The win_package menu does not support AppX packages yet
+# The win_package ansible module does not support AppX packages yet
 # so we need to run raw PowerShell commands.
+# see https://docs.ansible.com/ansible/latest/modules/win_package_module.html
 - name: Uninstall {{ package }}
-  win_command: "Get-AppxPackage -AllUsers -Name *{{ package }}* | Remove-AppxPackage -AllUsers"
+  win_shell: "Get-AppxPackage -AllUsers -Name *{{ package }}* | Remove-AppxPackage -AllUsers"
   loop:
     - WindowsMaps
     - WindowsSoundRecorder
@@ -67,3 +68,4 @@
     - XboxApp
   loop_control:
     loop_var: package
+  become: true
