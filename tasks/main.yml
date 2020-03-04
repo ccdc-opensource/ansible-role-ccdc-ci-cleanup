@@ -1,10 +1,12 @@
 ---
-  - name: Set up TeamCity build user and permissions
+  - name: Remove software that is installed by default but not really required
     include_tasks: "{{ taskfile }}"
     with_first_found:
-      - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
-      - "{{ ansible_distribution }}.yml"
-      - "{{ ansible_os_family }}.yml"
-      - "{{ ansible_system }}.yml"
+      - files:
+          - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
+          - "{{ ansible_distribution }}.yml"
+          - "{{ ansible_os_family }}.yml"
+          - "{{ ansible_system }}.yml"
+        skip: true
     loop_control:
       loop_var: taskfile
