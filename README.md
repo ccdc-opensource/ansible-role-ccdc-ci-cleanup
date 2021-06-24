@@ -33,7 +33,7 @@ None.
 
     - hosts: all
       roles:
-        - ccdc-cpp-buildmachine-cleanup
+        - ccdc.ci_cleanup
 
 ## License
 
