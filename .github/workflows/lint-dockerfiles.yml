@@ -38,6 +38,6 @@ jobs:
         with:
           fail_on_error: false
           filter_mode: diff_context
-          hadolint_flags: {{ steps.file-changes.outputs.changed-files }}
+          hadolint_flags: ${{ steps.file-changes.outputs.changed-files }}
           level: warning
           reporter: ${{ env.REVIEWDOG_REPORTER }}
